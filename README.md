@@ -1,30 +1,74 @@
-Fork of Laravel HTMLMin
+Fork of [Laravel-HTMLMin](https://github.com/HTMLMin/Laravel-HTMLMin)
 ===============
 
-Laravel HTMLMin is currently maintained by [Raza Mehdi](https://github.com/srmklive), and is a simple HTML minifier for [Laravel 5](http://laravel.com). It utilises Mr Clay's [Minify](https://github.com/mrclay/minify) package to minify entire responses, but can also minify blade at compile time. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/HTMLMin/Laravel-HTMLMin/releases), [license](LICENSE), and [contribution guidelines](CONTRIBUTING.md).
+if you write html in blade like this
 
-<p align="center">
-<a href="https://styleci.io/repos/12090327"><img src="https://styleci.io/repos/12090327/shield" alt="StyleCI Status"></img></a>
-<a href="https://travis-ci.org/HTMLMin/Laravel-HTMLMin"><img src="https://img.shields.io/travis/HTMLMin/Laravel-HTMLMin/master.svg?style=flat-square" alt="Build Status"></img></a>
-<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
-<a href="https://github.com/HTMLMin/Laravel-HTMLMin/releases"><img src="https://img.shields.io/github/release/HTMLMin/Laravel-HTMLMin.svg?style=flat-square" alt="Latest Version"></img></a>
-</p>
+```html
+<div>
+	<p>
+		text <i>italic</i>
+	</p>
+	<p>
+		text
+	</p>
+</div>
+```
+
+so you HTMLMin will minify code like:
+
+```html
+<div> <p> text <i>italic</i> </p> <p> text </p> </div>
+```
+and i don't need spaces between tags, so i had modify few rules in BladeMinifier.php for ```preg_replace()```
+from
+```php
+$replace = [
+    '/<!--[^\[](.*?)[^\]]-->/s' => '',
+    "/<\?php/"                  => '<?php ',
+    "/\n([\S])/"                => ' $1',
+    "/\r/"                      => '',
+    "/\n/"                      => '',
+    "/\t/"                      => ' ',
+    '/ +/'                      => ' ',
+];
+```
+to
+```php
+$replace = [
+'/<!--[^\[](.*?)[^\]]-->/s' => '',
+"/<\?php/"                  => '<?php ',
+"/\r\t*([\S])/"             => '$1',
+"/\n\t*([\S])/"             => '$1',
+"/\r\s*([\S])/"             => '$1',
+"/\n\s*([\S])/"             => '$1',
+"/\r/"                      => '',
+"/\n/"                      => '',
+"/\t/"                      => '',
+'/ +/'                      => ' ',
+];
+```
+
+and now it's:
+
+```html
+<div><p>text <i>italic</i></p><p>text</p></div>
+```
 
 
 ## Installation
 
-Laravel HTMLMin requires [PHP](https://php.net) 5.5+. This particular version supports Laravel 5.1, 5.2, 5.3, 5.4, 5.5, and 5.6 only.
+Laravel HTMLMin requires [PHP](https://php.net) 5.7+.
 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require htmlmin/htmlmin
+$ composer require katod/htmlmin
 ```
 
 Once installed, you need to register the `Katod\HTMLMin\HTMLMinServiceProvider` service provider in your `config/app.php`, and optionally alias our facade:
 
 ```php
-        'HTMLMin' => Katod\HTMLMin\Facades\HTMLMin::class,
+'HTMLMin' => Katod\HTMLMin\Facades\HTMLMin::class,
 ```
 
 
