@@ -14,7 +14,7 @@ if you write html in blade like this
 </div>
 ```
 
-so you HTMLMin will minify code like:
+so HTMLMin will minify code like:
 
 ```html
 <div> <p> text <i>italic</i> </p> <p> text </p> </div>
