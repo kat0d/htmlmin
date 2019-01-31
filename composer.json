@@ -1,7 +1,7 @@
 {
     "name": "katod/htmlmin",
-    "description": "HTMLMinImproved is fork of HTMLMin - Simple HTML Minifier For Laravel 5, but with improved minification rules for blade files(no space between tags anymore!)",
-    "keywords": ["laravel", "framework", "html minifier", "html", "minifier", "HTMLMinImproved", "Laravel HTMLMinImproved", "Laravel-HTMLMin-Improved"],
+    "description": "This is fork of HTMLMin - Simple HTML Minifier For Laravel 5, but with improved minification rules for blade files(no space between tags anymore!)",
+    "keywords": ["laravel", "framework", "html minifier", "html", "minifier", "Laravel HTMLMin Improved", "Laravel-HTMLMin"],
     "license": "MIT",
     "authors": [
         {
