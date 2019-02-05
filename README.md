@@ -1,6 +1,13 @@
 Fork of [Laravel-HTMLMin](https://github.com/HTMLMin/Laravel-HTMLMin)
 ===============
 
+install:
+```bash
+composer require katod/htmlmin
+php artisan vendor:publish --provider="Katod\HTMLMin\HTMLMinServiceProvider"
+php artisan view:clear
+```
+
 if you write html in blade like this
 
 ```html
